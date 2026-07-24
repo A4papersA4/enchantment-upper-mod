@@ -1,14 +1,19 @@
-plugins {
-    id 'java'
-    id 'net.neoforged.gradle.userdev' version '7.0.80'
+buildscript {
+    repositories {
+        maven { url = 'https://maven.neoforged.net/releases' }
+        mavenCentral()
+    }
+    dependencies {
+        classpath group: 'net.neoforged.gradle', name: 'userdev', version: '7.0.119'
+    }
 }
+
+apply plugin: 'java'
+apply plugin: 'net.neoforged.gradle.userdev'
 
 group = 'com.example'
 version = '1.0'
-
-base {
-    archivesName = 'enchantment_upper'
-}
+base { archivesName = 'enchantment_upper' }
 
 java.toolchain.languageVersion = JavaLanguageVersion.of(21)
 
@@ -20,11 +25,6 @@ dependencies {
     implementation 'net.neoforged:neoforge:21.0.163'
 }
 
-// 使用 neoForge 扩展代替 minecraft 块
-neoForge {
-    version = "1.21"
-    runs {
-        client()
-        server()
-    }
+minecraft {
+    mappings channel: 'official', version: '1.21'
 }
